@@ -69,7 +69,7 @@ if response_is.status_code == 200 and response_bs.status_code == 200:
             height=500,
             legend=dict(
                 orientation="h",            # Horisontal
-                yanchor="bottom",           # Fastgør bunden af legenden
+                yanchor="top",           # Fastgør bunden af legenden
                 y=1.04,                     # Lidt over selve figuren
                 xanchor="center",           # Centreret på x-aksen
                 x=0.5
@@ -90,7 +90,7 @@ if response_is.status_code == 200 and response_bs.status_code == 200:
             height=400,
             legend=dict(
                 orientation="h",            # Horisontal
-                yanchor="bottom",           # Fastgør bunden af legenden
+                yanchor="top",           # Fastgør bunden af legenden
                 y=1.04,                     # Lidt over selve figuren
                 xanchor="center",           # Centreret på x-aksen
                 x=0.5
@@ -114,7 +114,7 @@ if response_is.status_code == 200 and response_bs.status_code == 200:
             height=500,
             legend=dict(
                 orientation="h",            # Horisontal
-                yanchor="bottom",           # Fastgør bunden af legenden
+                yanchor="top",           # Fastgør bunden af legenden
                 y=1.04,                     # Lidt over selve figuren
                 xanchor="center",           # Centreret på x-aksen
                 x=0.5
@@ -167,7 +167,7 @@ if response_cf.status_code == 200:
             height=500,
             legend=dict(
                 orientation="h",            # Horisontal
-                yanchor="bottom",           # Fastgør bunden af legenden
+                yanchor="top",           # Fastgør bunden af legenden
                 y=1.04,                     # Lidt over selve figuren
                 xanchor="center",           # Centreret på x-aksen
                 x=0.5
