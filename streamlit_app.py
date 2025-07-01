@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 
 st.set_page_config(page_title="Financial Statement Dashboard", layout="wide")
 
-st.title("📊 Financial Statement Dashboard – Income & Balance Sheet")
+st.title("Visuel aktie information")
 
 # --- Sidebar: Choose ticker and period (annual/quarter) ---
 st.sidebar.header("Indstillinger")
