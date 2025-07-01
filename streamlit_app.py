@@ -180,7 +180,7 @@ else:
     st.warning("Kunne ikke hente cash flow data fra API.")
 
 # --- Daglig PE-ratio med forward-filled EPS ---
-st.subheader("Daglig PE-ratio baseret på årlig EPS (forward-fill)")
+st.subheader("Daglig PE-ratio baseret på årlig EPS")
 
 # Brug samme ticker som resten af appen!
 price_url = f"https://financialmodelingprep.com/api/v3/historical-price-full/{ticker}?serietype=line&apikey={API_KEY}"
@@ -236,7 +236,7 @@ else:
         name='PE-ratio'
     ))
     fig_pe.update_layout(
-        title=f"Daglig PE (Årlig EPS, forward-fill) for {ticker}",
+        title=f"Daglig PE for {ticker}",
         xaxis_title="Dato",
         yaxis_title="PE",
         width=950,
