@@ -18,7 +18,7 @@ else:
 
 # --- Number of periods to show (slider) ---
 max_periods = 20 if period_param == "annual" else 40
-default_periods = 5 if period_param == "annual" else 8
+default_periods = 3 if period_param == "annual" else 8
 num_periods = st.sidebar.slider("Antal perioder (år/kvartaler):", min_value=1, max_value=max_periods, value=default_periods)
 
 API_KEY = "7tm9pNymiv83LoOtSYfEjho3BMcFc6Nw"
