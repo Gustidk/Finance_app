@@ -64,7 +64,6 @@ if response_is.status_code == 200 and response_bs.status_code == 200:
             title=f"{ticker} – {'Årlige' if period_param == 'annual' else 'Kvartalsvise'} Nøgletal (Resultatopgørelse)",
             xaxis_title="År" if period_param == "annual" else "År + Periode",
             yaxis_title="Milliarder USD",
-            legend_title="Nøgletal",
             bargap=0.2,
             width=950,
             height=500,
@@ -74,6 +73,7 @@ if response_is.status_code == 200 and response_bs.status_code == 200:
                 y=1.04,                     # Lidt over selve figuren
                 xanchor="center",           # Centreret på x-aksen
                 x=0.5
+            )
         )
         st.plotly_chart(fig_is, use_container_width=True)
 
@@ -86,7 +86,6 @@ if response_is.status_code == 200 and response_bs.status_code == 200:
             title=f"{ticker} – {'Årlige' if period_param == 'annual' else 'Kvartalsvise'} Marginer",
             xaxis_title="År" if period_param == "annual" else "År + Periode",
             yaxis_title="Margin (%)",
-            legend_title="Margin-type",
             width=950,
             height=400,
             legend=dict(
@@ -95,7 +94,7 @@ if response_is.status_code == 200 and response_bs.status_code == 200:
                 y=1.04,                     # Lidt over selve figuren
                 xanchor="center",           # Centreret på x-aksen
                 x=0.5
-            yaxis=dict(ticksuffix=" %")
+            )
         )
         st.plotly_chart(fig_marg, use_container_width=True)
 
@@ -110,7 +109,6 @@ if response_is.status_code == 200 and response_bs.status_code == 200:
             title=f"{ticker} – {'Årlige' if period_param == 'annual' else 'Kvartalsvise'} Balance Sheet",
             xaxis_title="År" if period_param == "annual" else "År + Periode",
             yaxis_title="Milliarder USD",
-            legend_title="Balance nøgletal",
             bargap=0.2,
             width=950,
             height=500,
@@ -120,6 +118,7 @@ if response_is.status_code == 200 and response_bs.status_code == 200:
                 y=1.04,                     # Lidt over selve figuren
                 xanchor="center",           # Centreret på x-aksen
                 x=0.5
+            )
         )
         st.plotly_chart(fig_bs, use_container_width=True)
 
@@ -164,7 +163,6 @@ if response_cf.status_code == 200:
             title=f"{ticker} – {'Årlig' if period_param == 'annual' else 'Kvartalsvis'} Cash Flow",
             xaxis_title="År" if period_param == "annual" else "År + Periode",
             yaxis_title="Milliarder USD",
-            legend_title="Cash Flow Type",
             width=950,
             height=500,
             legend=dict(
@@ -173,6 +171,7 @@ if response_cf.status_code == 200:
                 y=1.04,                     # Lidt over selve figuren
                 xanchor="center",           # Centreret på x-aksen
                 x=0.5
+            )
         )
         st.plotly_chart(fig_cf, use_container_width=True)
     else:
