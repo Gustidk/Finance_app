@@ -178,3 +178,69 @@ if response_cf.status_code == 200:
         st.warning("Mangler cash flow værdier til plot.")
 else:
     st.warning("Kunne ikke hente cash flow data fra API.")
+
+# --- Daglig PE-ratio med forward-filled EPS ---
+st.subheader("Daglig PE-ratio baseret på årlig EPS (forward-fill)")
+
+# Brug samme ticker som resten af appen!
+price_url = f"https://financialmodelingprep.com/api/v3/historical-price-full/{ticker}?serietype=line&apikey={API_KEY}"
+price_response = requests.get(price_url)
+if price_response.status_code == 200 and "historical" in price_response.json():
+    price_data = price_response.json()
+    prices = pd.DataFrame(price_data["historical"])
+    prices['date'] = pd.to_datetime(prices['date'])
+    prices = prices.set_index('date').sort_index()
+else:
+    st.warning("Kunne ikke hente prisdata for valgt ticker.")
+    st.stop()
+
+eps_url = f"https://financialmodelingprep.com/api/v3/key-metrics/{ticker}?limit=30&apikey={API_KEY}"
+eps_response = requests.get(eps_url)
+if eps_response.status_code == 200:
+    eps_data = eps_response.json()
+    eps_df = pd.DataFrame(eps_data)
+    if 'date' in eps_df.columns and 'netIncomePerShare' in eps_df.columns:
+        eps_df['date'] = pd.to_datetime(eps_df['date'])
+        eps_df = eps_df.set_index('date').sort_index()
+        eps_df = eps_df[['netIncomePerShare']].rename(columns={'netIncomePerShare': 'eps'})
+    else:
+        st.warning("EPS-data findes ikke for denne ticker.")
+        st.stop()
+else:
+    st.warning("Kunne ikke hente EPS-data for valgt ticker.")
+    st.stop()
+
+# Forward-fill EPS til hver dag
+daily_eps = eps_df.reindex(prices.index, method='ffill')
+df_pe = prices[['close']].join(daily_eps)
+df_pe['pe'] = df_pe['close'] / df_pe['eps']
+
+# Valgfri: Vælg visningsperiode
+with st.expander("Vælg periode for PE-graf"):
+    start_date = st.date_input("Startdato", value=df_pe.index.min().date())
+    end_date = st.date_input("Slutdato", value=df_pe.index.max().date())
+df_pe_show = df_pe[(df_pe.index >= pd.to_datetime(start_date)) & (df_pe.index <= pd.to_datetime(end_date))]
+
+# Plot PE interaktivt
+fig_pe = go.Figure()
+fig_pe.add_trace(go.Scatter(
+    x=df_pe_show.index, y=df_pe_show['pe'],
+    mode='lines',
+    name='PE-ratio'
+))
+fig_pe.update_layout(
+    title=f"Daglig PE (Årlig EPS, forward-fill) for {ticker}",
+    xaxis_title="Dato",
+    yaxis_title="PE",
+    width=950,
+    height=500,
+    legend=dict(
+        orientation="h",
+        yanchor="top",
+        y=-0.2,
+        xanchor="center",
+        x=0.5
+    )
+)
+st.plotly_chart(fig_pe, use_container_width=True)
+
