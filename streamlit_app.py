@@ -39,7 +39,7 @@ if response_is.status_code == 200 and response_bs.status_code == 200:
     # Check for necessary columns before proceeding
     is_cols = ['calendarYear', 'period', 'revenue', 'grossProfit', 'operatingIncome', 'netIncome',
                'grossProfitRatio', 'operatingIncomeRatio', 'netIncomeRatio']
-    bs_cols = ['calendarYear', 'period', 'totalDebt', 'cashAndCashEquivalents', 'totalAssets']
+    bs_cols = ['calendarYear', 'period', 'totalDebt', 'cashAndShortTermInvestments', 'totalAssets']
 
     if all(col in df_is.columns for col in is_cols) and all(col in df_bs.columns for col in bs_cols):
         # Merge on date for easy plotting (date + period used as index for uniqueness)
