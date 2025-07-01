@@ -215,37 +215,39 @@ daily_eps = eps_df.reindex(prices.index, method='ffill')
 df_pe = prices[['close']].join(daily_eps)
 df_pe['pe'] = df_pe['close'] / df_pe['eps']
 
-# Valgfri: Vælg visningsperiode
-with st.expander("Vælg periode for PE-graf"):
-    start_date = st.date_input("Startdato", value=df_pe.index.min().date())
-    end_date = st.date_input("Slutdato", value=df_pe.index.max().date())
-df_pe_show = df_pe[(df_pe.index >= pd.to_datetime(start_date)) & (df_pe.index <= pd.to_datetime(end_date))]
+# Find de seneste 'num_periods' perioder (år eller kvartaler) fra den daglige PE-graf
+if period_param == "annual":
+    # Udtræk unikke år fra PE-datasættet (fx 2020, 2021, 2022)
+    years = sorted(df_pe.index.year.unique())[-num_periods:]
+    df_pe_show = df_pe[df_pe.index.year.isin(years)]
+else:
+    # Udtræk num_periods nyeste kvartaler (fx 2023Q1, 2023Q2, ...)
+    quarters = df_pe.index.to_period("Q").unique()[-num_periods:]
+    df_pe_show = df_pe[df_pe.index.to_period("Q").isin(quarters)]
 
-st.write("Pris-data shape:", prices.shape)
-st.write("EPS-data shape:", eps_df.shape)
-st.write("PE-data shape:", df_pe.shape)
-st.write(df_pe.tail())
-
-# Plot PE interaktivt
-fig_pe = go.Figure()
-fig_pe.add_trace(go.Scatter(
-    x=df_pe_show.index, y=df_pe_show['pe'],
-    mode='lines',
-    name='PE-ratio'
-))
-fig_pe.update_layout(
-    title=f"Daglig PE (Årlig EPS, forward-fill) for {ticker}",
-    xaxis_title="Dato",
-    yaxis_title="PE",
-    width=950,
-    height=500,
-    legend=dict(
-        orientation="h",
-        yanchor="top",
-        y=-0.2,
-        xanchor="center",
-        x=0.5
+# Vis PE-graf
+if df_pe_show['pe'].dropna().empty:
+    st.warning("Ingen PE-data tilgængelig i valgt periode eller for valgt ticker.")
+else:
+    fig_pe = go.Figure()
+    fig_pe.add_trace(go.Scatter(
+        x=df_pe_show.index, y=df_pe_show['pe'],
+        mode='lines',
+        name='PE-ratio'
+    ))
+    fig_pe.update_layout(
+        title=f"Daglig PE (Årlig EPS, forward-fill) for {ticker}",
+        xaxis_title="Dato",
+        yaxis_title="PE",
+        width=950,
+        height=500,
+        legend=dict(
+            orientation="h",
+            yanchor="top",
+            y=-0.2,
+            xanchor="center",
+            x=0.5
+        )
     )
-)
-st.plotly_chart(fig_pe, use_container_width=True)
+    st.plotly_chart(fig_pe, use_container_width=True)
 
