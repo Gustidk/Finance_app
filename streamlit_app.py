@@ -67,7 +67,7 @@ if response_is.status_code == 200 and response_bs.status_code == 200:
             legend_title="Nøgletal",
             bargap=0.2,
             width=950,
-            height=500
+            height=500,
             legend=dict(
                 orientation="h",            # Horisontal
                 yanchor="bottom",           # Fastgør bunden af legenden
