@@ -113,7 +113,7 @@ if response_is.status_code == 200 and response_bs.status_code == 200:
             legend_title="Balance nøgletal",
             bargap=0.2,
             width=950,
-            height=500
+            height=500,
             legend=dict(
                 orientation="h",            # Horisontal
                 yanchor="bottom",           # Fastgør bunden af legenden
@@ -166,7 +166,7 @@ if response_cf.status_code == 200:
             yaxis_title="Milliarder USD",
             legend_title="Cash Flow Type",
             width=950,
-            height=500
+            height=500,
             legend=dict(
                 orientation="h",            # Horisontal
                 yanchor="bottom",           # Fastgør bunden af legenden
