@@ -221,6 +221,11 @@ with st.expander("Vælg periode for PE-graf"):
     end_date = st.date_input("Slutdato", value=df_pe.index.max().date())
 df_pe_show = df_pe[(df_pe.index >= pd.to_datetime(start_date)) & (df_pe.index <= pd.to_datetime(end_date))]
 
+st.write("Pris-data shape:", prices.shape)
+st.write("EPS-data shape:", eps_df.shape)
+st.write("PE-data shape:", df_pe.shape)
+st.write(df_pe.tail())
+
 # Plot PE interaktivt
 fig_pe = go.Figure()
 fig_pe.add_trace(go.Scatter(
