@@ -68,6 +68,12 @@ if response_is.status_code == 200 and response_bs.status_code == 200:
             bargap=0.2,
             width=950,
             height=500
+            legend=dict(
+                orientation="h",            # Horisontal
+                yanchor="bottom",           # Fastgør bunden af legenden
+                y=1.04,                     # Lidt over selve figuren
+                xanchor="center",           # Centreret på x-aksen
+                x=0.5
         )
         st.plotly_chart(fig_is, use_container_width=True)
 
@@ -83,6 +89,12 @@ if response_is.status_code == 200 and response_bs.status_code == 200:
             legend_title="Margin-type",
             width=950,
             height=400,
+            legend=dict(
+                orientation="h",            # Horisontal
+                yanchor="bottom",           # Fastgør bunden af legenden
+                y=1.04,                     # Lidt over selve figuren
+                xanchor="center",           # Centreret på x-aksen
+                x=0.5
             yaxis=dict(ticksuffix=" %")
         )
         st.plotly_chart(fig_marg, use_container_width=True)
@@ -102,6 +114,12 @@ if response_is.status_code == 200 and response_bs.status_code == 200:
             bargap=0.2,
             width=950,
             height=500
+            legend=dict(
+                orientation="h",            # Horisontal
+                yanchor="bottom",           # Fastgør bunden af legenden
+                y=1.04,                     # Lidt over selve figuren
+                xanchor="center",           # Centreret på x-aksen
+                x=0.5
         )
         st.plotly_chart(fig_bs, use_container_width=True)
 
@@ -149,6 +167,12 @@ if response_cf.status_code == 200:
             legend_title="Cash Flow Type",
             width=950,
             height=500
+            legend=dict(
+                orientation="h",            # Horisontal
+                yanchor="bottom",           # Fastgør bunden af legenden
+                y=1.04,                     # Lidt over selve figuren
+                xanchor="center",           # Centreret på x-aksen
+                x=0.5
         )
         st.plotly_chart(fig_cf, use_container_width=True)
     else:
