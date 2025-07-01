@@ -91,7 +91,7 @@ if response_is.status_code == 200 and response_bs.status_code == 200:
             legend=dict(
                 orientation="h",            # Horisontal
                 yanchor="top",           # Fastgør bunden af legenden
-                y=-0.2,                     # Lidt over selve figuren
+                y=-0.25,                     # Lidt over selve figuren
                 xanchor="center",           # Centreret på x-aksen
                 x=0.5
             )
