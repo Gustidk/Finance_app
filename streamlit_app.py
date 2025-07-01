@@ -64,7 +64,7 @@ if response_is.status_code == 200 and response_bs.status_code == 200:
             title=f"{ticker} – {'Årlige' if period_param == 'annual' else 'Kvartalsvise'} Nøgletal (Resultatopgørelse)",
             xaxis_title="År" if period_param == "annual" else "År + Periode",
             yaxis_title="Milliarder USD",
-            bargap=0.2,
+            bargap=0.6,
             width=950,
             height=500,
             legend=dict(
